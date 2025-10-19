@@ -53,7 +53,7 @@ int TBitField::GetMemIndex(const int n) const // индекс Мем для би
         throw out_of_range("went abroud");
     }
     return n / (sizeof(TELEM) * 8);
-    return FAKE_INT;
+
 }
 
 TELEM TBitField::GetMemMask(const int n) const // битовая маска для бита n
@@ -62,7 +62,7 @@ TELEM TBitField::GetMemMask(const int n) const // битовая маска дл
         throw invalid_argument("went abroud");
     }
     return 1 << (n % (sizeof(TELEM) * 8));
-    return FAKE_INT;
+
 }
 
 // доступ к битам битового поля
@@ -70,7 +70,7 @@ TELEM TBitField::GetMemMask(const int n) const // битовая маска дл
 int TBitField::GetLength(void) const // получить длину (к-во битов)
 {
     return BitLen;
-    return FAKE_INT;
+
 }
 
 void TBitField::SetBit(const int n) // установить бит
@@ -102,7 +102,7 @@ int TBitField::GetBit(const int n) const // получить значение б
     int idx = GetMemIndex(n);
     TELEM mask = GetMemMask(n);
     return (pMem[idx] & mask) != 0;
-    return FAKE_INT;
+
 }
 
 // битовые операции
@@ -118,7 +118,7 @@ TBitField& TBitField::operator=(const TBitField& bf) // присваивание
             pMem[i] = bf.pMem[i];
     }
     return *this;
-    return FAKE_BITFIELD;
+
 }
 
 int TBitField::operator==(const TBitField& bf) const // сравнение
@@ -129,13 +129,13 @@ int TBitField::operator==(const TBitField& bf) const // сравнение
         if (pMem[i] != bf.pMem[i]) return 0;
     }
     return 1;
-    return FAKE_INT;
+
 }
 
 int TBitField::operator!=(const TBitField& bf) const // сравнение
 {
     return ~(*this == bf)%2;
-    return FAKE_INT;
+
 }
 
 TBitField TBitField::operator|(const TBitField& bf) // операция "или"
@@ -158,7 +158,7 @@ TBitField TBitField::operator|(const TBitField& bf) // операция "или"
             result.pMem[i] = bf.pMem[i];
     };
     return result;
-    return FAKE_BITFIELD;
+
 }
 
 TBitField TBitField::operator&(const TBitField& bf) // операция "и"
@@ -172,7 +172,6 @@ TBitField TBitField::operator&(const TBitField& bf) // операция "и"
 
     // Для оставшихся элементов - нули (поскольку операция И)
     return result;
-    return FAKE_BITFIELD;//понять нужны ли они вообще или нет
 }
 
 TBitField TBitField::operator~(void) // отрицание
@@ -191,7 +190,7 @@ TBitField TBitField::operator~(void) // отрицание
         }
     //}
         return result;
-    return FAKE_BITFIELD;
+
 }
 
 // ввод/вывод
